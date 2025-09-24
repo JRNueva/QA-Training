@@ -1,0 +1,81 @@
+TASK 1: ADD FIRST 5 USER
+- Get users data from API: https://jsonplaceholder.typicode.com/users
+- Add the first 5 users as customers in the system
+- For Each added use:
+    * Verify name is correct
+    * Verify email is correct
+    * Verify other details match API data
+
+TASK 2: VERIFY TABLE DISPLAY
+- Check if the 5 newly added customers appear in the table  
+
+---------------------------------------------------------------------------------
+
+TASK 3: UPDATE EXISTING CUSTOMERS
+- Take the last 5 users from your API data (users 6-10)
+- Update rows 6 to 10 in the table with this data
+- Replace all information with the new user's data
+
+---------------------------------------------------------------------------------
+
+TASK 4: LOG TABLE DATA
+- For each row in the table, print the data in this format
+    ===== USER 1 =====
+    Name : John Doe
+    Last Seen: 2023-09-24
+    Orders: 5
+    [Continue with all available fields]
+
+    ===== USER 2 =====
+    [Same format for next user]
+
+---------------------------------------------------------------------------------
+
+TASK 5: ANALYZE USER SPENDING
+
+1. Display Users with spending:
+- Check all user'stotal spent amount
+- For users with total spent > 0, display:
+    1. John Does: $500
+    2. Jane Smith: $750
+    3. Bob Johnson: $1200
+    [Continue for all users with spending]
+
+2. Calculate Total Spending:
+- Sum up all users' total spent amounts
+- Display the sum:
+    =========================
+    Total Customer Spending: $3,750
+    =========================
+
+3. Validate Total SPending
+- IF total spending < $3,500:
+    * Display: "FAIL: Total spending($3,450) is below minimum ($3,500)"
+    * Fail Test Execution
+- ELSE:
+    * Display: "PASS: Total spending ($3,750) meets minimum threshold ($3,500)"
+    * Continue Test Execution
+
+Example Output:
+1. John Doe: $500
+2. Jane Smith: $750
+3. Bob Johnson: $1,200
+4. Alice Brown: $800
+5. Tom Wilson: $500
+
+========================
+Total Customer Spending: $3,750
+========================
+PASS: Total Spending ($3,750) meets minimum threshold ($3,500)
+
+    
+// Get the input value
+{variable}      Get ELement Attribut    {xpath}     value
+
+// Clean Code
+onting variables
+seperation of concerns
+onting for loop
+
+jhajhalibao@gmail.com
+subject: <last_name>_<first_name>_robotframework

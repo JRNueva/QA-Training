@@ -1,0 +1,713 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.3.2 (Python 3.12.3 on darwin)" generated="2025-09-25T00:32:22.597532" rpa="false" schemaversion="5">
+<suite id="s1" name="Training" source="/Users/jrosenueva/Desktop/QA/Training">
+<suite id="s1-s1" name="Tests" source="/Users/jrosenueva/Desktop/QA/Training/Tests">
+<suite id="s1-s1-s1" name="Test" source="/Users/jrosenueva/Desktop/QA/Training/Tests/test.robot">
+<kw name="Launch And Login" type="SETUP">
+<kw name="Launch Browser">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:22.728147" level="INFO">Opening browser 'chrome' to base url 'https://marmelab.com/react-admin-demo'.</msg>
+<arg>${url}</arg>
+<arg>chrome</arg>
+<arg>options=add_argument("--start-maximized")</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2025-09-25T00:32:22.727978" elapsed="3.200254"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${element_to_wait}</arg>
+<arg>timeout=20s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-09-25T00:32:25.929393" elapsed="0.429408"/>
+</kw>
+<arg>${URL}</arg>
+<arg>${login_txt_username}</arg>
+<status status="PASS" start="2025-09-25T00:32:22.727574" elapsed="3.631412"/>
+</kw>
+<kw name="Login User">
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:26.359717" level="INFO">Typing text 'demo' into text field '//input[@name="username"]'.</msg>
+<arg>${login_txt_username}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.359502" elapsed="0.107076"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:26.467070" level="INFO">Typing text 'demo' into text field '//input[@name="password"]'.</msg>
+<arg>${login_txt_password}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.466807" elapsed="0.044647"/>
+</kw>
+<kw name="Capture Page Screenshot" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:26.657150" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-318.png"&gt;&lt;img src="selenium-screenshot-318.png" width="800px"&gt;&lt;/a&gt;</msg>
+<doc>Takes a screenshot of the current page and embeds it into a log file.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.511654" elapsed="0.145624"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:26.657643" level="INFO">Clicking button '//button[@type="submit"]'.</msg>
+<arg>${login_btn_submit}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.657401" elapsed="0.069413"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${dashboard_hdr}</arg>
+<arg>error=Dashboard not found. Login Failed</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.726989" elapsed="0.032287"/>
+</kw>
+<kw name="Run Keyword And Return Status" owner="BuiltIn">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${dashboard_hdr}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.760305" elapsed="0.005323"/>
+</kw>
+<msg time="2025-09-25T00:32:26.765768" level="INFO">${status} = True</msg>
+<var>${status}</var>
+<arg>Wait Until Element Is Visible</arg>
+<arg>${dashboard_hdr}</arg>
+<doc>Runs the given keyword with given arguments and returns the status as a Boolean value.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.759867" elapsed="0.005976"/>
+</kw>
+<if>
+<branch type="IF" condition="${status}">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>LOGIN SUCCESSFUL</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.766270" elapsed="0.000210"/>
+</kw>
+<status status="PASS" start="2025-09-25T00:32:26.766030" elapsed="0.000499"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log To Console" owner="BuiltIn">
+<arg>LOGIN FAILED</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:26.766671" elapsed="0.000048"/>
+</kw>
+<status status="NOT RUN" start="2025-09-25T00:32:26.766568" elapsed="0.000190"/>
+</branch>
+<status status="PASS" start="2025-09-25T00:32:26.765992" elapsed="0.000791"/>
+</if>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2025-09-25T00:32:29.767639" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2025-09-25T00:32:26.766845" elapsed="3.002322"/>
+</kw>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+<status status="PASS" start="2025-09-25T00:32:26.359228" elapsed="3.410653"/>
+</kw>
+<status status="PASS" start="2025-09-25T00:32:22.727348" elapsed="7.042653"/>
+</kw>
+<test id="s1-s1-s1-t1" name="TEST-000004" line="23">
+<kw name="Log Customers With Spending" owner="CustomerPage">
+<kw name="Go To Customers Page" owner="CustomerPage">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:29.782244" level="INFO">Clicking element '(//p[text()="Customers"])[2]'.</msg>
+<arg>${nav_btn_customers}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:29.781792" elapsed="0.051868"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>//table//tbody//tr</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-09-25T00:32:29.834575" elapsed="0.501019"/>
+</kw>
+<status status="PASS" start="2025-09-25T00:32:29.780819" elapsed="0.554907"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${table_row}</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.335819" elapsed="0.009126"/>
+</kw>
+<kw name="Get Element Count" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.349449" level="INFO">${row_count} = 25</msg>
+<var>${row_count}</var>
+<arg>${table_row}</arg>
+<doc>Returns the number of elements matching ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.345203" elapsed="0.004395"/>
+</kw>
+<kw name="Create List" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.350309" level="INFO">${users_with_spending} = []</msg>
+<var>${users_with_spending}</var>
+<doc>Returns a list containing given items.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.350010" elapsed="0.000557"/>
+</kw>
+<for flavor="IN RANGE">
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.367799" level="INFO">${fetched_name} = Zoila Koch</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.351291" elapsed="0.016605"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.378755" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.368050" elapsed="0.010791"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.379475" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.378976" elapsed="0.000557"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.379903" level="INFO">${user_dict} = {'name': 'Zoila Koch', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.379636" elapsed="0.000325"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.380092" elapsed="0.000157"/>
+</kw>
+<var name="${index}">1</var>
+<status status="PASS" start="2025-09-25T00:32:30.351181" elapsed="0.029197"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.389905" level="INFO">${fetched_name} = Kaitlin Moen</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.380562" elapsed="0.009412"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.399779" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.390074" elapsed="0.009777"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.400208" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.399965" elapsed="0.000299"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.400632" level="INFO">${user_dict} = {'name': 'Kaitlin Moen', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.400368" elapsed="0.000314"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.400784" elapsed="0.000166"/>
+</kw>
+<var name="${index}">2</var>
+<status status="PASS" start="2025-09-25T00:32:30.380477" elapsed="0.020523"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.410051" level="INFO">${fetched_name} = Sandy Hartmann</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.401150" elapsed="0.008966"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.423254" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.410218" elapsed="0.013135"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.424714" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.423498" elapsed="0.001283"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.425401" level="INFO">${user_dict} = {'name': 'Sandy Hartmann', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.424941" elapsed="0.000505"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.425530" elapsed="0.000125"/>
+</kw>
+<var name="${index}">3</var>
+<status status="PASS" start="2025-09-25T00:32:30.401075" elapsed="0.024754"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.439615" level="INFO">${fetched_name} = Aliya Stiedemann</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.425998" elapsed="0.013727"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.448285" level="INFO">${total_spent_text} = $695.25</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.439921" elapsed="0.008450"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.448749" level="INFO">${amount} = 695.25</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.448517" elapsed="0.000306"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.449101" level="INFO">${user_dict} = {'name': 'Aliya Stiedemann', 'spent': '695.25'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.448914" elapsed="0.000270"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.449454" elapsed="0.000112"/>
+</kw>
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.449265" elapsed="0.000355"/>
+</kw>
+<var name="${index}">4</var>
+<status status="PASS" start="2025-09-25T00:32:30.425921" elapsed="0.023768"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.459733" level="INFO">${fetched_name} = Darrick Ortiz</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.449894" elapsed="0.009932"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.468798" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.459946" elapsed="0.008924"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.469219" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.468987" elapsed="0.000283"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.469519" level="INFO">${user_dict} = {'name': 'Darrick Ortiz', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.469357" elapsed="0.000202"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.469637" elapsed="0.000116"/>
+</kw>
+<var name="${index}">5</var>
+<status status="PASS" start="2025-09-25T00:32:30.449778" elapsed="0.020014"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.488062" level="INFO">${fetched_name} = Jamarcus Kassulke</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.469939" elapsed="0.018234"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.499359" level="INFO">${total_spent_text} = $563.10</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.488391" elapsed="0.011053"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.499824" level="INFO">${amount} = 563.1</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.499576" elapsed="0.000312"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.500225" level="INFO">${user_dict} = {'name': 'Jamarcus Kassulke', 'spent': '563.1'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.499988" elapsed="0.000314"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.500593" elapsed="0.000121"/>
+</kw>
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.500386" elapsed="0.000378"/>
+</kw>
+<var name="${index}">6</var>
+<status status="PASS" start="2025-09-25T00:32:30.469866" elapsed="0.030944"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.508959" level="INFO">${fetched_name} = Elna Kshlerin</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.500981" elapsed="0.008052"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.516816" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.509132" elapsed="0.007741"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.517134" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.516956" elapsed="0.000220"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.517438" level="INFO">${user_dict} = {'name': 'Elna Kshlerin', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.517250" elapsed="0.000235"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.517571" elapsed="0.000186"/>
+</kw>
+<var name="${index}">7</var>
+<status status="PASS" start="2025-09-25T00:32:30.500891" elapsed="0.016927"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.526068" level="INFO">${fetched_name} = Gayle Ratke</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.517973" elapsed="0.008154"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.533839" level="INFO">${total_spent_text} = $153.12</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.526212" elapsed="0.007703"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.534129" level="INFO">${amount} = 153.12</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.534005" elapsed="0.000161"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.534384" level="INFO">${user_dict} = {'name': 'Gayle Ratke', 'spent': '153.12'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.534235" elapsed="0.000183"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.534612" elapsed="0.000145"/>
+</kw>
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.534489" elapsed="0.000311"/>
+</kw>
+<var name="${index}">8</var>
+<status status="PASS" start="2025-09-25T00:32:30.517895" elapsed="0.016943"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.543956" level="INFO">${fetched_name} = Bette Braun</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.535314" elapsed="0.008754"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.552513" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.544164" elapsed="0.008408"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.552898" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.552688" elapsed="0.000251"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.553259" level="INFO">${user_dict} = {'name': 'Bette Braun', 'spent': '0.0'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.553029" elapsed="0.000271"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.553383" elapsed="0.000119"/>
+</kw>
+<var name="${index}">9</var>
+<status status="PASS" start="2025-09-25T00:32:30.535226" elapsed="0.018315"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.562052" level="INFO">${fetched_name} = Coty Quitzon</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.553683" elapsed="0.008466"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.570494" level="INFO">${total_spent_text} = $206.76</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.562321" elapsed="0.008240"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.570921" level="INFO">${amount} = 206.76</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.570750" elapsed="0.000209"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.571225" level="INFO">${user_dict} = {'name': 'Coty Quitzon', 'spent': '206.76'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.571031" elapsed="0.000228"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.571455" elapsed="0.000105"/>
+</kw>
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.571330" elapsed="0.000273"/>
+</kw>
+<var name="${index}">10</var>
+<status status="PASS" start="2025-09-25T00:32:30.553611" elapsed="0.018029"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.580057" level="INFO">${fetched_name} = Pattie Cronin</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.571831" elapsed="0.008321"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.587923" level="INFO">${total_spent_text} = $1,073.04</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.580293" elapsed="0.007684"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.588229" level="INFO">${amount} = 1073.04</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.588068" elapsed="0.000227"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.588591" level="INFO">${user_dict} = {'name': 'Pattie Cronin', 'spent': '1073.04'}</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.588388" elapsed="0.000243"/>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<kw name="Append To List" owner="Collections">
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Adds ``values`` to the end of ``list``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.588904" elapsed="0.000132"/>
+</kw>
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.588707" elapsed="0.000376"/>
+</kw>
+<var name="${index}">11</var>
+<status status="PASS" start="2025-09-25T00:32:30.571718" elapsed="0.017402"/>
+</iter>
+<iter>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.602647" level="INFO">${fetched_name} = N
+Nona Terry</msg>
+<var>${fetched_name}</var>
+<arg>(${table_row})[${index}]//td[2][1]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.589254" elapsed="0.013474"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2025-09-25T00:32:30.611667" level="INFO">${total_spent_text} = $0.00</msg>
+<var>${total_spent_text}</var>
+<arg>(${table_row})[${index}]//td[5]</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.602850" elapsed="0.008883"/>
+</kw>
+<kw name="Parse Total Spent" owner="CustomLibrary">
+<msg time="2025-09-25T00:32:30.612012" level="INFO">${amount} = 0.0</msg>
+<var>${amount}</var>
+<arg>${total_spent_text}</arg>
+<status status="PASS" start="2025-09-25T00:32:30.611839" elapsed="0.000241"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<msg time="2025-09-25T00:32:30.612639" level="FAIL">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</msg>
+<var>${user_dict}</var>
+<arg>{'name': '${fetched_name}', 'spent': '${amount}'}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="FAIL" start="2025-09-25T00:32:30.612174" elapsed="0.002458">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</kw>
+<kw name="Run Keyword If" owner="BuiltIn">
+<arg>${amount} &gt; 0</arg>
+<arg>Append To List</arg>
+<arg>${users_with_spending}</arg>
+<arg>${user_dict}</arg>
+<doc>Runs the given keyword with the given arguments, if ``condition`` is true.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.614751" elapsed="0.000081"/>
+</kw>
+<var name="${index}">12</var>
+<status status="FAIL" start="2025-09-25T00:32:30.589192" elapsed="0.025700">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</iter>
+<var>${index}</var>
+<value>1</value>
+<value>${row_count + 1}</value>
+<status status="FAIL" start="2025-09-25T00:32:30.350666" elapsed="0.264279">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</for>
+<kw name="Set Variable" owner="BuiltIn">
+<var>${counter}</var>
+<arg>1</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615040" elapsed="0.000056"/>
+</kw>
+<for flavor="IN">
+<iter>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${name}</var>
+<arg>${user}</arg>
+<arg>name</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615283" elapsed="0.000037"/>
+</kw>
+<kw name="Get From Dictionary" owner="Collections">
+<var>${spent}</var>
+<arg>${user}</arg>
+<arg>spent</arg>
+<doc>Returns a value from the given ``dictionary`` based on the given ``key``.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615374" elapsed="0.000030"/>
+</kw>
+<kw name="Log To Console" owner="BuiltIn">
+<arg>${counter}. ${name}: $${spent:,.0f}</arg>
+<doc>Logs the given message to the console.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615452" elapsed="0.000031"/>
+</kw>
+<kw name="Evaluate" owner="BuiltIn">
+<var>${counter}</var>
+<arg>${counter} + 1</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615531" elapsed="0.000028"/>
+</kw>
+<var name="${user}"/>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615223" elapsed="0.000362"/>
+</iter>
+<var>${user}</var>
+<value>@{users_with_spending}</value>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615143" elapsed="0.000464"/>
+</for>
+<return>
+<value>${users_with_spending}</value>
+<status status="NOT RUN" start="2025-09-25T00:32:30.615640" elapsed="0.000031"/>
+</return>
+<status status="FAIL" start="2025-09-25T00:32:29.780149" elapsed="0.835578">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</kw>
+<status status="FAIL" start="2025-09-25T00:32:29.770219" elapsed="0.845712">Evaluating expression "{'name': 'N\nNona Terry', 'spent': '0.0'}" failed: SyntaxError: unterminated string literal (detected at line 1) (&lt;string&gt;, line 1)</status>
+</test>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2025-09-25T00:32:30.619138" elapsed="0.082552"/>
+</kw>
+<status status="FAIL" start="2025-09-25T00:32:22.612408" elapsed="8.089401"/>
+</suite>
+<status status="FAIL" start="2025-09-25T00:32:22.611302" elapsed="8.093224"/>
+</suite>
+<status status="FAIL" start="2025-09-25T00:32:22.600326" elapsed="8.105432"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Training" id="s1" pass="0" fail="1" skip="0">Training</stat>
+<stat name="Tests" id="s1-s1" pass="0" fail="1" skip="0">Training.Tests</stat>
+<stat name="Test" id="s1-s1-s1" pass="0" fail="1" skip="0">Training.Tests.Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
