@@ -104,6 +104,8 @@ Update Last Five Customers
         ${first}    Evaluate    "${customer['name']}".split(" ")[0]
         ${last}     Evaluate    "${customer['name']}".split(" ")[1]
 
+        # Change To CTRL+A for Windows
+
         Press Keys    ${customers_txt_firstname}       COMMAND+A    BACKSPACE
         Input Text    ${customers_txt_firstname}       ${first}
 
