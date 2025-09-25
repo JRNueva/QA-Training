@@ -100,6 +100,8 @@ Update Last Five Customers
 
         Click Element    (//table//tbody//tr)[${index}]//td[2]//a
         Wait Until Element Is Visible    ${customers_txt_firstname}
+        
+        # Name Split Error
 
         ${first}    Evaluate    "${customer['name']}".split(" ")[0]
         ${last}     Evaluate    "${customer['name']}".split(" ")[1]
@@ -141,6 +143,7 @@ Log All Customer Table Data
         ${total_spent}        Get Text    (${table_row})[${index}]//td[5]
         ${latest_purchase}    Get Text    (${table_row})[${index}]//td[6]
         ${newsletter}         Get Element Attribute    (${table_row})[${index}]//td[7]   aria-label
+        #Array
         ${segments}           Get Text    (${table_row})[${index}]//td[8]//div
    
         ${latest_purchase}    Run Keyword If    '${latest_purchase}' == ''    Set Variable    N/A    ELSE    Set Variable    ${latest_purchase}
@@ -169,23 +172,25 @@ Log Customers With Spending
     ${users_with_spending}=    Create List
 
     FOR    ${index}    IN RANGE    1    ${row_count + 1}
-        ${fetched_name}=    Get Text    (${table_row})[${index}]//td[2][1]
-        ${total_spent_text}=    Get Text    (${table_row})[${index}]//td[5]
-        ${amount}=    Parse Total Spent    ${total_spent_text}
+        ${fetched_name}=       Get Text    (${table_row})[${index}]//td[2][1]
+        ${total_spent_text}=   Get Text    (${table_row})[${index}]//td[5]
 
-        ${user_dict}=    Evaluate    {'name': '${fetched_name}', 'spent': '${amount}'}
+        ${clean_name}=          Replace String    ${fetched_name}    \n    ' '
+        ${amount}=             Parse Total Spent    ${total_spent_text}
 
-        Run Keyword If    ${amount} > 0    Append To List    ${users_with_spending}    ${user_dict}
-
+        Run Keyword If    ${amount} > 0
+        ...    ${user_dict}=    Create Dictionary    name=${clean_name}    spent=${amount}
+        ...    Append To List    ${users_with_spending}    ${user_dict}
     END
 
     ${counter}=    Set Variable    1
-   
+    Log To Console    ===================== CUSTOMERS WITH SPENDING =====================
     FOR    ${user}    IN    @{users_with_spending}
-        ${name}=    Get From Dictionary    ${user}    name
-        ${spent}=   Get From Dictionary    ${user}    spent
-        Log To Console    ${counter}. ${name}: $${spent:,.0f}
-        ${counter}=    Evaluate    ${counter} + 1
+        ${name}=     Get From Dictionary    ${user}    name
+        ${spent}=    Get From Dictionary    ${user}    spent
+        Log To Console    ${counter}. ${name}: $${spent:,.2f}
+        ${counter}=  Evaluate    ${counter} + 1
     END
-
+    Log To Console    ===============================================================
+    
     RETURN    ${users_with_spending}
