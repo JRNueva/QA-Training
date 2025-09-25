@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    ../Resources/App.resource
 Resource    ../Resources/CustomerPage.resource
+Library    String
 
 Suite Setup    Launch And Login
 Suite Teardown    Close Browser
@@ -20,9 +21,8 @@ TEST-000002
 TEST-000003
     Log All Customer Table Data
     
-TEST-000004
-    Log Customers With Spending
-
+TEST-000004  
+    Analyze User Spending    26        
 
 
 *** Keywords ***

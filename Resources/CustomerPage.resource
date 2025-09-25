@@ -1,17 +1,20 @@
 *** Settings ***
 Resource    ../Resources/App.resource
 Variables    ../Variables/customerpage.py
-# 
 
 *** Variables ***
 ${SPACE}    
 
 *** Keywords ***
 Go To Customers Page
+    [Documentation]    Navigate to the customers page and wait until the customer table is visible
+
     Click Element     ${nav_btn_customers}
     Wait Until Element Is Visible    //table//tbody//tr
 
 Create User
+    [Documentation]    Create a new customer using the provided customer dictionary.
+
     [Arguments]    ${customer}
     Click Element    ${customers_btn_create}
     Wait Until Element Is Visible    ${customers_txt_firstname}
@@ -34,13 +37,15 @@ Create User
     Wait Until Page Contains    Customer created
 
 Add And Verify First Five Customers
+    [Documentation]    Creation of First Five customers and verify each information. Then Check the display on table.
+
     ${customers}    Get Random Users
     FOR    ${customer}    IN    @{customers}[:5]
         Go To Customers Page
         Create User    ${customer}
         Verify Customer Details Match    ${customer}
-        Verify Customer Is Added        ${customer}
     END
+    Verify Customers Are Added
 
 Verify Customer Details Match
     [Arguments]    ${customer}
@@ -81,19 +86,33 @@ Verify Customer Details Match
     ${password}     Get Element Attribute    ${customers_txt_password}    value
     Should Be Equal As Strings    ${password}    ${customer["password"]}
 
-Verify Customer Is Added
-    [Arguments]    ${customer}
+Verify Customers Are Added
+    [Arguments]    @{customers}
     Go To Customers Page
     Refresh Current Page
-    ${fetched_name}    Get Text    ((${table_row})[1]//td)[2]     
-    IF    "\\n" in """${fetched_name}"""
-        ${fetched_name}    Evaluate    """${fetched_name}""".replace("\\n","")[1:]
-    END
-    Should Be Equal As Strings    ${customer["name"].split(" ")[0]} ${customer["name"].split(" ")[1]}    ${fetched_name} 
 
-# 
+    @{expected_names}    Create List
+    FOR    ${customer}    IN    @{customers}
+        ${full_name}    Set Variable    ${customer["name"].split(" ")[0]} ${customer["name"].split(" ")[1]}
+        Append To List    ${expected_names}    ${full_name}
+    END
+
+    ${num_rows}    Get Length    ${expected_names}
+    ${last_index}  Evaluate    ${num_rows} + 1
+
+    @{fetched_names}    Create List
+    FOR    ${i}    IN RANGE    1    ${last_index}
+        ${fetched_name}    Get Text    ((${table_row})[${i}]//td)[2]
+        IF    "\\n" in """${fetched_name}"""
+            ${fetched_name}    Evaluate    """${fetched_name}""".replace("\\n","").strip()
+        END
+        Append To List    ${fetched_names}    ${fetched_name}
+    END
+
+    Lists Should Be Equal    ${expected_names}    ${fetched_names}
 
 Update Last Five Customers
+    [Documentation]    Update Customers' Information from 6 to 10
     ${customers}    Get Random Users
     FOR    ${index}    ${customer}    IN ENUMERATE    @{customers}[5:10]    start=6
         Go To Customers Page
@@ -101,20 +120,18 @@ Update Last Five Customers
         Click Element    (//table//tbody//tr)[${index}]//td[2]//a
         Wait Until Element Is Visible    ${customers_txt_firstname}
         
-        # Name Split Error
-
         ${first}    Evaluate    "${customer['name']}".split(" ")[0]
         ${last}     Evaluate    "${customer['name']}".split(" ")[1]
 
-        # Change To CTRL+A for Windows
+        # Change To CTRL+A for Windows, MAC COMMAND+A
 
-        Press Keys    ${customers_txt_firstname}       COMMAND+A    BACKSPACE
+        Press Keys    ${customers_txt_firstname}       CTRL+A    BACKSPACE
         Input Text    ${customers_txt_firstname}       ${first}
 
-        Press Keys    ${customers_txt_lastname}        COMMAND+A    BACKSPACE
+        Press Keys    ${customers_txt_lastname}        CTRL+A    BACKSPACE
         Input Text    ${customers_txt_lastname}        ${last}
 
-        Press Keys    ${customers_txt_email}           COMMAND+A    BACKSPACE
+        Press Keys    ${customers_txt_email}           CTRL+A    BACKSPACE
         Input Text    ${customers_txt_email}           ${customer["email"]}
 
         Input Text      ${customers_txt_birthday}    ${customer["birthday"]}
@@ -135,20 +152,22 @@ Log All Customer Table Data
 
     ${row_count}    Get Element Count    ${table_row}
     FOR    ${index}    IN RANGE    1    ${row_count + 1}
+        Log To Console    ${SPACE}
         Log To Console    ========== USER ${index} ==========
 
+
         ${fetched_name}       Get Text    (${table_row})[${index}]//td[2][1]
+        ${formatted_name}=    Run Keyword If    True    Evaluate    """'${fetched_name}'.replace('\n','').strip()"""
+
         ${last_seen}          Get Text    (${table_row})[${index}]//td[3]
         ${orders}             Get Text    (${table_row})[${index}]//td[4]
         ${total_spent}        Get Text    (${table_row})[${index}]//td[5]
         ${latest_purchase}    Get Text    (${table_row})[${index}]//td[6]
-        ${newsletter}         Get Element Attribute    (${table_row})[${index}]//td[7]   aria-label
-        #Array
-        ${segments}           Get Text    (${table_row})[${index}]//td[8]//div
-   
+        ${newsletter}         Get Element Attribute    (${table_row})[${index}]//td[7]/span/*[local-name()="svg"]   aria-label
+        ${segments}           Get Text    (${table_row})[${index}]//td[8]
+        ${formatted_segments}=   Evaluate    """${segments}""".replace("\\n", ", ") if """${segments}""".strip() else "N/A"
+
         ${latest_purchase}    Run Keyword If    '${latest_purchase}' == ''    Set Variable    N/A    ELSE    Set Variable    ${latest_purchase}
-        ${segment_element}    Run Keyword And Ignore Error    Get WebElement    (${table_row})[${index}]//td[8]//span
-        ${segments}           Run Keyword If    '${segment_element[0]}' == 'FAIL'    Set Variable    N/A    ELSE    Get Text    ${segment_element[1]}
 
         IF    "\\n" in """${fetched_name}"""
             ${fetched_name}    Evaluate    """${fetched_name}""".replace("\\n","")[1:]
@@ -160,37 +179,49 @@ Log All Customer Table Data
         Log To Console    Total Spent : ${total_spent}
         Log To Console    Latest Purchase : ${latest_purchase}
         Log To Console    Newsletter : ${newsletter}
-        Log To Console    Segments : ${segments}
+        Log To Console    Segments : ${formatted_segments}
         Log To Console    ${SPACE}
     END
 
-Log Customers With Spending
+
+Analyze User Spending
+    [Arguments]    ${end}
     Go To Customers Page
-    Wait Until Element Is Visible    ${table_row}
+    Log To Console    \n
+    Fetch Spent Details    ${end}
+   
+Fetch Spent Details
+    [Arguments]    ${end}
+    ${counter}    Set Variable    1
+    ${users_total}    Set Variable    0
 
-    ${row_count}=    Get Element Count    ${table_row}
-    ${users_with_spending}=    Create List
+    FOR    ${i}    IN RANGE    1    ${end}
+        ${fetched_name}               Get Text    ((${table_row})[${i}]//td)[2]
+        ${total_spent}        Get Text    ((${table_row})[${i}]//td)[5]
 
-    FOR    ${index}    IN RANGE    1    ${row_count + 1}
-        ${fetched_name}=       Get Text    (${table_row})[${index}]//td[2][1]
-        ${total_spent_text}=   Get Text    (${table_row})[${index}]//td[5]
-
-        ${clean_name}=          Replace String    ${fetched_name}    \n    ' '
-        ${amount}=             Parse Total Spent    ${total_spent_text}
-
-        Run Keyword If    ${amount} > 0
-        ...    ${user_dict}=    Create Dictionary    name=${clean_name}    spent=${amount}
-        ...    Append To List    ${users_with_spending}    ${user_dict}
+        ${formatted_name}=    Run Keyword If    True    Evaluate    """${fetched_name}"""
+        ${clean_amount}    Evaluate    """${total_spent}""".replace("$", "").replace(",", "")
+        
+        IF    "${clean_amount}" != "0.00"
+            ${users_total}    Evaluate    ${users_total} + float("${clean_amount}")
+            Log To Console    ${counter}. ${formatted_name}: ${total_spent}
+            ${counter}    Evaluate    ${counter} + 1
+        END
     END
-
-    ${counter}=    Set Variable    1
-    Log To Console    ===================== CUSTOMERS WITH SPENDING =====================
-    FOR    ${user}    IN    @{users_with_spending}
-        ${name}=     Get From Dictionary    ${user}    name
-        ${spent}=    Get From Dictionary    ${user}    spent
-        Log To Console    ${counter}. ${name}: $${spent:,.2f}
-        ${counter}=  Evaluate    ${counter} + 1
-    END
-    Log To Console    ===============================================================
     
-    RETURN    ${users_with_spending}
+    ${formatted_total}    Evaluate    "{:.2f}".format(${users_total})
+    Log To Console    \n=======================================
+    Log To Console    Total Customer Spending: $${formatted_total}
+    Log To Console    =======================================
+    Verify Spent Amount    ${formatted_total}
+
+
+Verify Spent Amount
+    [Arguments]    ${formatted_total}
+
+    IF    ${formatted_total} < 3500    
+         Log to Console    "FAIL: Total spending($${formatted_total}) is below minimum ($3,500)"
+         Fail
+    ELSE
+        Log To Console    "PASS: Total spending ($${formatted_total}) meets minimum threshold ($3,500)"
+    END
